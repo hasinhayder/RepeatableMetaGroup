@@ -146,38 +146,43 @@ if (!class_exists("RepeatableMetaGroup")) {
 
                 foreach ($metabox['fields'] as $field) {
                     $oldval = get_post_meta($post->ID, $field['id'], true);
-                    if (isset($oldval[$i])) $field['default'] = $oldval[$i];
+                    $value = isset($oldval[$i])? $oldval[$i]:$field['default'];
+
                     echo sprintf('<label for="%s_%d">%s</label>', $field['id'], $i, $field['name']);
 
                     switch ($field['type']) {
                         case "text":
-                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s"/><br/>', $field['type'], $field['type'], $field['id'], $field['id'], $i, $field['default']);
+                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s"/><br/>', $field['type'], $field['type'], $field['id'], $field['id'], $i, $value);
                             break;
                         case "color":
-                            echo sprintf('<input class="rmg-color widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s"/><br/>', $field['type'], $field['type'], $field['id'], $field['id'], $i, $field['default']);
+                            echo sprintf('<input class="rmg-color widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s"/><br/>', $field['type'], $field['type'], $field['id'], $field['id'], $i, $value);
                             break;
                         case "textarea":
-                            echo sprintf('<textarea class="data-fieldtype-%s" type="text" name="%s[]" id="%s_%d">%s</textarea><br/>', $field['type'], $field['id'], $field['id'], $i, $field['default']);
+                            echo sprintf('<textarea class="data-fieldtype-%s" type="text" name="%s[]" id="%s_%d">%s</textarea><br/>', $field['type'], $field['id'], $field['id'], $i, $value);
                             break;
                         case "wysywyg":
-                            wp_editor($field['default'], "{$field['id']}_$i", array("textarea_name" => "{$field['id']}[]", "teeny" => true));
+                            wp_editor($value, "{$field['id']}_$i", array("textarea_name" => "{$field['id']}[]", "teeny" => true));
                             break;
                         case "select":
                             echo sprintf('<select name="%s[]" class="rmg-select data-fieldtype-%s" id="%s_%d">', $field['id'], $field['type'], $field['id'], $i);
                             echo "<option value=''>".__('Select a value','rmg')."</option>";
                             foreach ($field['options'] as $key => $val) {
                                 $selected = "";
-                                if ($field['default'] == $key) $selected = "selected";
+                                if ($value == $key) $selected = "selected";
                                 echo sprintf('<option value="%s" %s>%s</option>', $key, $selected, $val);
                             }
                             echo "</select>";
                             break;
                         case "gallery":
                             echo "<ul class='gallery-ph'></ul>";
-                            echo "<input class='galleryinfo'  name='".$field['id']."[]'  type='hidden' value='".$field['default']."'/>";
+                            echo "<input class='galleryinfo'  name='".$field['id']."[]'  type='hidden' value='".$value."'/>";
                             echo "<input type='button' data-multiple='true' value='Add Images To Gallery' class='galgal button button-primary button-large'>";
                             echo "<input type='button' value='Clear' style='margin-left:10px;' class='galgalremove button button-large' >";
                             break;
+                        default:
+                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s"/><br/>', "text", "text", $field['id'], $field['id'], $i, $value);
+                            break;
+
                     }
                 }
                 echo "</div>";
