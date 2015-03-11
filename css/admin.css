@@ -1,0 +1,81 @@
+/**
+ * Repeatable Meta Group Plugin
+ * @author Hasin Hayder (http://hasin.me)
+ * @version 1.0
+ * @licence GPL
+ */
+
+.rmgcontainer h3.hndle{
+    background-color: #222222;
+    color: #eeeeee;
+}
+.rmg{
+    position: relative;
+}
+.rmg .rmg-fields{
+    margin-top:20px;
+    margin-bottom: 15px;
+    padding-left:10px;
+    margin-left:70px;
+}
+
+.rmg label{
+    display: block;
+    margin-bottom: 5px;
+}
+
+.rmg input[type='text'], .rmg textarea{
+    margin-bottom: 10px;
+    width: 70%;
+}
+
+.rmg textarea{
+    height: 80px;
+}
+
+.rmg select{
+    margin-bottom: 10px;
+}
+
+.rmg .rmg-rb:hover{
+    /*background-color: #f3f1f1;*/
+}
+
+.rmg .rmg-handle{
+    width:50px;
+    height: 100px;
+    /*background-color: #eee;*/
+    float: left;
+    position:absolute;
+}
+
+.rmg .rmg-rb{
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+
+.rmg .rmg-toolbar{
+    width:100%;
+    height:36px;
+    padding-top:12px;
+    background:#fcfcfc;
+    margin-bottom:-8px;
+    border-bottom-left-radius:3px;
+    border-bottom-right-radius:3px;
+    text-align:center;
+    border-top:1px solid #dfdfdf;
+}
+
+.rmg-del{
+    width:40px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.rmg-color{
+    height: 30px;
+    width: 30px;
+    padding:0px 2px;
+    margin-bottom: 10px;
+}
