@@ -8,7 +8,20 @@
 (function ($) {
     "use strict";
     $(document).ready(function () {
-        $(".rmg").parents(".postbox").addClass("rmgcontainer")
+        $(".rmg").parents(".postbox").addClass("rmgcontainer");
+
+        hideMetaBoxes();
+        showDefaultMetaboxesWithDeps();
+        $("#page_template").on("change", function () {
+            var pt = $(this).val();
+            $(".rmg").each(function () {
+                var deps = $(this).data("page-templates");
+                hideMetaBoxes();
+                if (deps != "" && deps.indexOf(pt) != -1) {
+                    $(this).parents(".postbox").show();
+                }
+            });
+        });
     });
 
 
@@ -41,10 +54,33 @@
         e.preventDefault();
 
     });
-    if ($(".rmg-color").length>0)
+    if ($(".rmg-color").length > 0)
         $(".rmg-color").farbtastic();
 
 
     $(".rmg").find(".rmg-rb:last").css("border", "none");
+
+
+    /**
+     * Visibiity Options
+     */
+    function hideMetaBoxes() {
+        $(".rmg").each(function () {
+            if ($(this).data("page-templates") != "") {
+                $(this).parents(".postbox").hide();
+            }
+        });
+    }
+
+    function showDefaultMetaboxesWithDeps() {
+        var pt = $("#page_template").val();
+        $(".rmg").each(function () {
+            var deps = $(this).data("page-templates");
+            if (deps != "" && deps.indexOf(pt) != -1) {
+                $(this).parents(".postbox").show();
+            }
+        });
+    }
+
 
 })(jQuery);

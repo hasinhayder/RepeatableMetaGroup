@@ -19,13 +19,16 @@ if (!class_exists("RepeatableMetaGroup")) {
 
         private $metabox = array(
             array(
-                "name"       => "Sample MetaBox",
-                "id"         => "rgm_smb",
-                "post_types" => array("post","page"),
-                "context"    => "normal",
-                "priority"   => "default",
-                "button"     => "Add More Options",
-                "fields"     => array(
+                "name"           => "Sample MetaBox",
+                "id"             => "rgm_smb",
+                "post_types"     => array("post", "page"),
+                "context"        => "normal",
+                "priority"       => "default",
+                "button"         => "Add More Options",
+                "page_templates" => array(),
+                "post_formats" => array(),
+                "post_ids" => array(),
+                "fields"         => array(
                     array(
                         "id"      => "field1",
                         "type"    => "text",
@@ -108,7 +111,7 @@ if (!class_exists("RepeatableMetaGroup")) {
 
             if ($metaboxes) {
                 foreach ($metaboxes as $mb) {
-                    foreach($mb['post_types'] as $pt){
+                    foreach ($mb['post_types'] as $pt) {
                         add_meta_box(
                             $mb['id'],      // Unique ID
                             esc_html__($mb['name'], 'rmg'),    // Title
@@ -129,6 +132,11 @@ if (!class_exists("RepeatableMetaGroup")) {
             wp_nonce_field(basename(__FILE__), 'rmg_nonce');
             $metabox = $args['args']['metabox'];
 
+            /**
+             * Visibility Conditions
+             */
+            $page_templates = join(",",$metabox['page_templates']);
+
 
             /**
              * find how many times it was repeated
@@ -137,7 +145,7 @@ if (!class_exists("RepeatableMetaGroup")) {
             $count = count(get_post_meta($post->ID, $metabox['fields']['0']['id'], true));
             if ($count == 0) $count = 1;
 
-            echo "<div class='rmg'>";
+            echo "<div class='rmg' data-page-templates='{$page_templates}'>";
 
             for ($i = 0; $i < $count; $i++) {
                 echo "<div class='rmg-rb'>";
@@ -146,7 +154,7 @@ if (!class_exists("RepeatableMetaGroup")) {
 
                 foreach ($metabox['fields'] as $field) {
                     $oldval = get_post_meta($post->ID, $field['id'], true);
-                    $value = isset($oldval[$i])? $oldval[$i]:$field['default'];
+                    $value = isset($oldval[$i]) ? $oldval[$i] : $field['default'];
 
                     echo sprintf('<label for="%s_%d">%s</label>', $field['id'], $i, $field['name']);
 
@@ -165,7 +173,7 @@ if (!class_exists("RepeatableMetaGroup")) {
                             break;
                         case "select":
                             echo sprintf('<select name="%s[]" class="rmg-select data-fieldtype-%s" id="%s_%d">', $field['id'], $field['type'], $field['id'], $i);
-                            echo "<option value=''>".__('Select a value','rmg')."</option>";
+                            echo "<option value=''>" . __('Select a value', 'rmg') . "</option>";
                             foreach ($field['options'] as $key => $val) {
                                 $selected = "";
                                 if ($value == $key) $selected = "selected";
@@ -175,7 +183,7 @@ if (!class_exists("RepeatableMetaGroup")) {
                             break;
                         case "gallery":
                             echo "<ul class='gallery-ph'></ul>";
-                            echo "<input class='galleryinfo'  name='".$field['id']."[]'  type='hidden' value='".$value."'/>";
+                            echo "<input class='galleryinfo'  name='" . $field['id'] . "[]'  type='hidden' value='" . $value . "'/>";
                             echo "<input type='button' data-multiple='true' value='Add Images To Gallery' class='galgal button button-primary button-large'>";
                             echo "<input type='button' value='Clear' style='margin-left:10px;' class='galgalremove button button-large' >";
                             break;
@@ -190,7 +198,7 @@ if (!class_exists("RepeatableMetaGroup")) {
                 echo "<div style='clear:both'></div>";
             }
 
-            if(!isset($metabox['button'])) $metabox['button']= __("Add More","rmg");
+            if (!isset($metabox['button'])) $metabox['button'] = __("Add More", "rmg");
             echo "<div class='rmg-toolbar'><button class='button rmg-addmore'>{$metabox['button']}</button></div>";
 
             echo "</div>";
@@ -199,7 +207,7 @@ if (!class_exists("RepeatableMetaGroup")) {
 
         function rmg_save_metaboxes($pid, $post) {
             if (!isset($_POST['rmg_nonce']) || !wp_verify_nonce($_POST['rmg_nonce'], basename(__FILE__))) return $pid;
-            $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             foreach ($_POST as $name => $val) {
                 $oldval = get_post_meta($pid, $name, true);
                 if (!$oldval || $oldval != $val) {
