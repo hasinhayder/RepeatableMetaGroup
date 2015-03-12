@@ -110,11 +110,11 @@ if (!class_exists("RepeatableMetaGroup")) {
 
         function rmg_init_metaboxes() {
 
-            $display_default_metabox = apply_filters("RMB_DISPLAY_DEFAULT_METABOX", $this->display_default_metabox);
+            $display_default_metabox = apply_filters("rmg_display_default_metabox", $this->display_default_metabox);
             if ($display_default_metabox)
-                $metaboxes = apply_filters("RMG_METABOXES", $this->metabox);
+                $metaboxes = apply_filters("rmg_metaboxes", $this->metabox);
             else
-                $metaboxes = apply_filters("RMG_METABOXES", array());
+                $metaboxes = apply_filters("rmg_metaboxes", array());
 
             if ($metaboxes) {
                 foreach ($metaboxes as $mb) {
@@ -231,11 +231,11 @@ if (!class_exists("RepeatableMetaGroup")) {
             }
 
             //now save formatted and grouped data
-            $display_default_metabox = apply_filters("RMB_DISPLAY_DEFAULT_METABOX", $this->display_default_metabox);
+            $display_default_metabox = apply_filters("rmg_display_default_metabox", $this->display_default_metabox);
             if ($display_default_metabox)
-                $metaboxes = apply_filters("RMG_METABOXES", $this->metabox);
+                $metaboxes = apply_filters("rmg_metaboxes", $this->metabox);
             else
-                $metaboxes = apply_filters("RMG_METABOXES", array());
+                $metaboxes = apply_filters("rmg_metaboxes", array());
 
             foreach ($metaboxes as $mb) {
                 $groupid = $mb['id'];
