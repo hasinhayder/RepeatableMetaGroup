@@ -27,7 +27,7 @@
             });
         });
 
-        $("#post-formats-select").on("click","input", function () {
+        $("#post-formats-select").on("click", "input", function () {
             var pf = $(this).val();
             $(".rmg").each(function () {
                 var deps = $(this).data("post-formats");
@@ -50,9 +50,9 @@
         $(e).find(".galgal").val("Add Images to Gallery");
 
         $(e).insertAfter($(this).parents(".rmg").find(".rmg-rb:last"));
-        $(".rmg .rmg-rb").css("border-bottom", "1px solid #eee");
-        $(".rmg").find(".rmg-rb:last").css("border", "none");
         $(this).parents(".rmg").find(".rmg-del").show();
+
+        borderFix();
 
 
         ev.preventDefault();
@@ -70,11 +70,44 @@
         e.preventDefault();
 
     });
+
+
+    $(".rmg").on("click", ".rmg-up", function (e) {
+        var prnt = $(this).parents(".rmg-rb");
+        var prev = $(prnt).prev();
+        if(prev.hasClass("rmg-rb")){
+            if (prev.length == 1) {
+                var me = $(prnt).detach();
+                $(me).insertBefore(prev);
+            }
+        }
+        borderFix();
+        e.preventDefault();
+    });
+
+    $(".rmg").on("click", ".rmg-down", function (e) {
+        var prnt = $(this).parents(".rmg-rb");
+        var next = $(prnt).next();
+        if(next.hasClass("rmg-rb")){
+            if (next.length == 1) {
+                var me = $(prnt).detach();
+                $(me).insertAfter(next);
+            }
+        }
+        borderFix();
+        e.preventDefault();
+    });
+
     if ($(".rmg-color").length > 0)
         $(".rmg-color").farbtastic();
 
 
     $(".rmg").find(".rmg-rb:last").css("border", "none");
+
+    function borderFix(){
+        $(".rmg .rmg-rb").css("border-bottom", "1px solid #eee");
+        $(".rmg").find(".rmg-rb:last").css("border", "none");
+    }
 
 
     /**
@@ -98,7 +131,7 @@
         });
     }
 
-    function hideMetaboxesForPostFormats(){
+    function hideMetaboxesForPostFormats() {
         $(".rmg").each(function () {
             if ($(this).data("post-formats") != "") {
                 $(this).parents(".postbox").hide();
@@ -106,7 +139,7 @@
         });
     }
 
-    function showDefaultMetaboxesForPostFormats(){
+    function showDefaultMetaboxesForPostFormats() {
         var pf = $("#post-formats-select input:checked").val();
         $(".rmg").each(function () {
             var deps = $(this).data("post-formats");

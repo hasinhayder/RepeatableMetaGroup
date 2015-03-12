@@ -162,7 +162,7 @@ if (!class_exists("RepeatableMetaGroup")) {
 
             for ($i = 0; $i < $count; $i++) {
                 echo "<div class='rmg-rb'>";
-                echo "<div class='rmg-handle'><button class='button rmg-del'>X</button></div>";
+                echo "<div class='rmg-handle'><button class='button rmg-del'>X</button><button class='button rmg-up'><</button><button class='button rmg-down'>></button></div>";
                 echo "<div class='rmg-fields'>";
 
                 foreach ($metabox['fields'] as $field) {
@@ -206,9 +206,9 @@ if (!class_exists("RepeatableMetaGroup")) {
 
                     }
                 }
-                echo "</div>";
-                echo "</div>";
-                echo "<div style='clear:both'></div>";
+                echo "</div> <!--rmg fields-->";
+                echo "</div> <!--rmg rb-->";
+                //echo "<div style='clear:both'></div>";
             }
 
             if (!isset($metabox['button'])) $metabox['button'] = __("Add More", "rmg");
