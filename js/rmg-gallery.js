@@ -7,6 +7,7 @@
  */
 var rmggal;
 (function ($) {
+    "use strict";
     $(document).ready(function () {
 
         $(".rmg").on("click", ".galgalremove", function () {
@@ -52,7 +53,7 @@ var rmggal;
             }
             container.html("");
             selected_ids = selected_ids.split(",");
-            for (i = 0; i < selected_ids.length; i++) {
+            for (var i = 0; i < selected_ids.length; i++) {
                 if (selected_ids[i] > 0) {
                     var attachment = new wp.media.model.Attachment.get(selected_ids[i]);
                     attachment.fetch({
@@ -126,7 +127,7 @@ var rmggal;
             file_frame.on('open', function () {
                 var selection = file_frame.state().get('selection');
                 var ats = $(that).prev(".galleryinfo").val().split(",");
-                for (i = 0; i < ats.length; i++) {
+                for (var i = 0; i < ats.length; i++) {
                     if (ats[i] > 0)
                         selection.add(wp.media.attachment(ats[i]));
                 }
