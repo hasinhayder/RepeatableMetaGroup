@@ -10,18 +10,34 @@
     $(document).ready(function () {
         $(".rmg").parents(".postbox").addClass("rmgcontainer");
 
-        hideMetaBoxes();
+        hideMetaBoxesForPageTemplates();
         showDefaultMetaboxesWithDeps();
+
+        hideMetaboxesForPostFormats();
+        showDefaultMetaboxesForPostFormats();
+
         $("#page_template").on("change", function () {
             var pt = $(this).val();
             $(".rmg").each(function () {
                 var deps = $(this).data("page-templates");
-                hideMetaBoxes();
+                hideMetaBoxesForPageTemplates();
                 if (deps != "" && deps.indexOf(pt) != -1) {
                     $(this).parents(".postbox").show();
                 }
             });
         });
+
+        $("#post-formats-select").on("click","input", function () {
+            var pf = $(this).val();
+            $(".rmg").each(function () {
+                var deps = $(this).data("post-formats");
+                hideMetaboxesForPostFormats();
+                if (deps != "" && deps.indexOf(pf) != -1) {
+                    $(this).parents(".postbox").show();
+                }
+            });
+        });
+
     });
 
 
@@ -64,7 +80,7 @@
     /**
      * Visibiity Options
      */
-    function hideMetaBoxes() {
+    function hideMetaBoxesForPageTemplates() {
         $(".rmg").each(function () {
             if ($(this).data("page-templates") != "") {
                 $(this).parents(".postbox").hide();
@@ -77,6 +93,24 @@
         $(".rmg").each(function () {
             var deps = $(this).data("page-templates");
             if (deps != "" && deps.indexOf(pt) != -1) {
+                $(this).parents(".postbox").show();
+            }
+        });
+    }
+
+    function hideMetaboxesForPostFormats(){
+        $(".rmg").each(function () {
+            if ($(this).data("post-formats") != "") {
+                $(this).parents(".postbox").hide();
+            }
+        });
+    }
+
+    function showDefaultMetaboxesForPostFormats(){
+        var pf = $("#post-formats-select input:checked").val();
+        $(".rmg").each(function () {
+            var deps = $(this).data("post-formats");
+            if (deps != "" && deps.indexOf(pf) != -1) {
                 $(this).parents(".postbox").show();
             }
         });

@@ -26,8 +26,8 @@ if (!class_exists("RepeatableMetaGroup")) {
                 "priority"       => "default",
                 "button"         => "Add More Options",
                 "page_templates" => array(),
-                "post_formats" => array(),
-                "post_ids" => array(),
+                "post_formats"   => array(),
+                "post_ids"       => array(),
                 "fields"         => array(
                     array(
                         "id"      => "field1",
@@ -135,7 +135,13 @@ if (!class_exists("RepeatableMetaGroup")) {
             /**
              * Visibility Conditions
              */
-            $page_templates = join(",",$metabox['page_templates']);
+            $page_templates = "";
+            if (isset($metabox['page_templates']))
+                $page_templates = join(",", $metabox['page_templates']);
+
+            $post_formats = "";
+            if(isset($metabox['post_formats']))
+                $post_formats = join(",",$metabox['post_formats']);
 
 
             /**
@@ -145,7 +151,7 @@ if (!class_exists("RepeatableMetaGroup")) {
             $count = count(get_post_meta($post->ID, $metabox['fields']['0']['id'], true));
             if ($count == 0) $count = 1;
 
-            echo "<div class='rmg' data-page-templates='{$page_templates}'>";
+            echo "<div class='rmg' data-page-templates='{$page_templates}' data-post-formats='{$post_formats}'>";
 
             for ($i = 0; $i < $count; $i++) {
                 echo "<div class='rmg-rb'>";
