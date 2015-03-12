@@ -79,3 +79,18 @@
     padding:0px 2px;
     margin-bottom: 10px;
 }
+.rmg-handle button{
+    width:35px;
+}
+
+.rmg-handle .rmg-del{
+    background-color: #F44336;
+    border-color: #D32F2F;
+    color: #fff;
+}
+
+.rmg-handle .rmg-del:hover{
+    background-color: #f42331;
+    border-color: #D32F2F;
+    color: #fff;
+}
