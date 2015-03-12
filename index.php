@@ -87,10 +87,17 @@ if (!class_exists("RepeatableMetaGroup")) {
 
         function rmg_scripts($hook) {
             if ($hook == "post.php" || $hook == "post-new.php") {
+
+                $button_labels = array(
+                    "multiple"=>__("Customize This Gallery","rmg"),
+                    "single"=>__("Change Image","rmg"),
+                );
+
                 wp_enqueue_style("rmg-admin", plugin_dir_url(__FILE__) . "css/admin.css");
                 wp_enqueue_style("rmg-gallery", plugin_dir_url(__FILE__) . "css/rmg-gallery.css");
                 wp_enqueue_script("rmg-admin-js", plugin_dir_url(__FILE__) . "js/rmg-admin.js", array("jquery", "farbtastic"), "0.1", true);
                 wp_enqueue_script("rmg-gallery-js", plugin_dir_url(__FILE__) . "js/rmg-gallery.js", array("jquery"), "0.1", true);
+                wp_localize_script("rmg-gallery-js","rmggal",$button_labels);
             }
         }
 
@@ -190,8 +197,8 @@ if (!class_exists("RepeatableMetaGroup")) {
                         case "gallery":
                             echo "<ul class='gallery-ph'></ul>";
                             echo "<input class='galleryinfo'  name='" . $field['id'] . "[]'  type='hidden' value='" . $value . "'/>";
-                            echo "<input type='button' data-multiple='true' value='Add Images To Gallery' class='galgal button button-primary button-large'>";
-                            echo "<input type='button' value='Clear' style='margin-left:10px;' class='galgalremove button button-large' >";
+                            echo "<input type='button' data-multiple='true' value='".__('Add Images To Gallery','rmg'). "' class='galgal button button-primary button-large'>";
+                            echo "<input type='button' value='".__('Clear','rmg')."' style='margin-left:10px;' class='galgalremove button button-large' >";
                             break;
                         default:
                             echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s"/><br/>', "text", "text", $field['id'], $field['id'], $i, $value);

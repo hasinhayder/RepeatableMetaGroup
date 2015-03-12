@@ -5,6 +5,7 @@
  * @version 1.0
  * @licence GPL
  */
+var rmggal;
 (function ($) {
     $(document).ready(function () {
 
@@ -38,9 +39,9 @@
             var selected_ids = $(this).prev("input").val();
             if (selected_ids && selected_ids.length > 0) {
                 if ($(this).data("multiple"))
-                    $(this).val("Customize This Gallery");
+                    $(this).val(rmggal.multiple);
                 else
-                    $(this).val("Change Image");
+                    $(this).val(rmggal.single);
 
 
                 $(this).css("marginTop", "10px");
@@ -102,9 +103,9 @@
                     $(that).next().css("marginTop", "10px");
                     $(that).next().show();
                     if (multiple)
-                        $(that).val("Customize This Gallery");
+                        $(that).val(rmggal.multiple);
                     else
-                        $(that).val("Change Image");
+                        $(that).val(rmggal.single);
                 }
                 $(that).prev('input').val(selected_ids.join(","));
                 container.html("");
