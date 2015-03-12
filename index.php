@@ -92,7 +92,6 @@ if (!class_exists("RepeatableMetaGroup")) {
                     "multiple" => __("Customize This Gallery", "rmg"),
                     "single"   => __("Change Image", "rmg"),
                 );
-                wp_enqueue_script("farbtastic");
                 wp_enqueue_style("rmg-admin", plugin_dir_url(__FILE__) . "css/admin.css");
                 wp_enqueue_style("rmg-gallery", plugin_dir_url(__FILE__) . "css/rmg-gallery.css");
                 wp_enqueue_script("rmg-admin-js", plugin_dir_url(__FILE__) . "js/rmg-admin.js", array("jquery", "farbtastic"), "0.1", true);
