@@ -38,6 +38,11 @@
             });
         });
 
+        if($.fn.farbtastic){
+            if ($(".rmg-color").length > 0)
+                $(".rmg-color").farbtastic();
+        }
+
     });
 
 
@@ -98,8 +103,7 @@
         e.preventDefault();
     });
 
-    if ($(".rmg-color").length > 0)
-        $(".rmg-color").farbtastic();
+
 
 
     $(".rmg").find(".rmg-rb:last").css("border", "none");

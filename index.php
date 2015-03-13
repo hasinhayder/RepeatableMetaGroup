@@ -73,7 +73,7 @@ if (!class_exists("RepeatableMetaGroup")) {
             register_deactivation_hook(__FILE__, array($this, "rmg_deactivate"));
 
             add_action("init", array($this, "rmg_init"));
-            add_action("admin_enqueue_scripts", array($this, "rmg_scripts"));
+            add_action("admin_enqueue_scripts", array($this, "rmg_scripts"),1000);
 
         }
 
@@ -92,7 +92,6 @@ if (!class_exists("RepeatableMetaGroup")) {
                     "multiple" => __("Customize This Gallery", "rmg"),
                     "single"   => __("Change Image", "rmg"),
                 );
-
                 wp_enqueue_style("rmg-admin", plugin_dir_url(__FILE__) . "css/admin.css");
                 wp_enqueue_style("rmg-gallery", plugin_dir_url(__FILE__) . "css/rmg-gallery.css");
                 wp_enqueue_script("rmg-admin-js", plugin_dir_url(__FILE__) . "js/rmg-admin.js", array("jquery", "farbtastic"), "0.1", true);

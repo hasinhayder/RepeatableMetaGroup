@@ -18,7 +18,7 @@ RMG comes with a default metabox for example purpose. You can easily turn it off
 
 ```php
 add_filter("rmg_display_default_metabox",function(){
-	return true;
+	return false;
 });
 ```
 
@@ -26,7 +26,7 @@ or
 
 ```php
 function turn_off_default_rmg_mb() {
-    return true;
+    return false;
 }
 
 add_filter("rmg_display_default_metabox", 'turn_off_default_rmg_mb');
