@@ -86,16 +86,26 @@ if (!class_exists("RepeatableMetaGroup")) {
         }
 
         function rmg_scripts($hook) {
+
+            if(strpos(plugin_dir_url(__FILE__),plugin_dir_path(__FILE__))!==false) {
+                //loaded from theme
+                $path = dirname(str_replace(WP_CONTENT_DIR, WP_CONTENT_URL, __FILE__));
+            }else{
+                //loaded as plugin
+                $path = plugin_dir_url(__FILE__);
+            }
+
             if ($hook == "post.php" || $hook == "post-new.php") {
 
                 $button_labels = array(
                     "multiple" => __("Customize This Gallery", "rmg"),
                     "single"   => __("Change Image", "rmg"),
                 );
-                wp_enqueue_style("rmg-admin", plugin_dir_url(__FILE__) . "css/admin.css");
-                wp_enqueue_style("rmg-gallery", plugin_dir_url(__FILE__) . "css/rmg-gallery.css");
-                wp_enqueue_script("rmg-admin-js", plugin_dir_url(__FILE__) . "js/rmg-admin.js", array("jquery", "farbtastic"), "0.1", true);
-                wp_enqueue_script("rmg-gallery-js", plugin_dir_url(__FILE__) . "js/rmg-gallery.js", array("jquery"), "0.1", true);
+
+                wp_enqueue_style("rmg-admin", $path . "/css/admin.css");
+                wp_enqueue_style("rmg-gallery", $path . "/css/rmg-gallery.css");
+                wp_enqueue_script("rmg-admin-js", $path . "/js/rmg-admin.js", array("jquery", "farbtastic"), "0.1", true);
+                wp_enqueue_script("rmg-gallery-js", $path . "/js/rmg-gallery.js", array("jquery"), "0.1", true);
                 wp_localize_script("rmg-gallery-js", "rmggal", $button_labels);
             }
         }
