@@ -102,7 +102,7 @@ if (!class_exists("RepeatableMetaGroup")) {
                     "single"   => __("Change Image", "rmg"),
                 );
 
-                wp_enqueue_style("rmg-admin", $path . "/css/admin.css");
+                wp_enqueue_style("rmg-admin", $path . "/css/admin.css",null,"1.0");
                 wp_enqueue_style("rmg-gallery", $path . "/css/rmg-gallery.css");
                 wp_enqueue_script("rmg-admin-js", $path . "/js/rmg-admin.js", array("jquery", "farbtastic"), "0.1", true);
                 wp_enqueue_script("rmg-gallery-js", $path . "/js/rmg-gallery.js", array("jquery"), "0.1", true);
@@ -179,7 +179,9 @@ if (!class_exists("RepeatableMetaGroup")) {
                     $oldval = get_post_meta($post->ID, $field['id'], true);
                     $value = isset($oldval[$i]) ? $oldval[$i] : $field['default'];
 
-                    echo sprintf('<label for="%s_%d">%s</label>', $field['id'], $i, $field['name']);
+                    echo "<table class='meta-table'>";
+
+                    echo sprintf('<tr><th width="100"><label for="%s_%d">%s</label></th><td align="left">', $field['id'], $i, $field['name']);
 
                     switch ($field['type']) {
                         case "text":
@@ -215,6 +217,8 @@ if (!class_exists("RepeatableMetaGroup")) {
                             break;
 
                     }
+
+                    echo "</td></tr></table>";
                 }
                 echo "</div> <!--rmg fields-->";
                 echo "</div> <!--rmg rb-->";

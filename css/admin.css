@@ -96,3 +96,13 @@
     border-color: #D32F2F;
     color: #fff;
 }
+
+.meta-table{
+    width: 100%;
+}
+.meta-table th{
+    text-align: right;
+    vertical-align: top;
+    padding-right: 10px;
+    padding-top:5px;
+}
