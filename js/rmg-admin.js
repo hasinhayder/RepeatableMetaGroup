@@ -43,6 +43,25 @@
                 $(".rmg-color").farbtastic();
         }
 
+        $(".data-fieldtype-checkbox").on("click",function(e){
+            if($(this).prop("checked")){
+                var val = $(this).val();
+                var id = $(this).attr("id");
+                $("#"+id.replace('c___',"")).val(val);
+            }else{
+                var id = $(this).attr("id");
+                $("#"+id.replace('c___',"")).val(0);
+            }
+        });
+
+        $(".data-fieldtype-checkbox").each(function(){
+            var id = $(this).attr("id");
+            var val = $("#"+id.replace('c___',"")).val();
+            if(val>0){
+                $(this).attr("checked","checked");
+            }
+        })
+
     });
 
 

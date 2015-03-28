@@ -34,6 +34,11 @@ if (!class_exists("RepeatableMetaGroup")) {
                         "type"    => "text",
                         "name"    => "My Awesome Field 1",
                         "default" => ""
+                    ),array(
+                        "id"      => "field1c",
+                        "type"    => "checkbox",
+                        "name"    => "My Awesome Field 1",
+                        "default" => "1"
                     ),
                     array(
                         "id"      => "field3",
@@ -145,6 +150,7 @@ if (!class_exists("RepeatableMetaGroup")) {
         }
 
         function rmg_draw_metaboxes($post, $args) {
+
             wp_nonce_field(basename(__FILE__), 'rmg_nonce');
             $metabox = $args['args']['metabox'];
 
@@ -176,8 +182,13 @@ if (!class_exists("RepeatableMetaGroup")) {
                 echo "<div class='rmg-fields'>";
 
                 foreach ($metabox['fields'] as $field) {
+                    $jsfields[$field['id']]=1;
                     $oldval = get_post_meta($post->ID, $field['id'], true);
-                    $value = isset($oldval[$i]) ? $oldval[$i] : $field['default'];
+                    if($field['type']!="checkbox")
+                        $value = isset($oldval[$i]) ? $oldval[$i] : $field['default'];
+                    else
+                        $value = $oldval[$i];
+                    echo "OLDVAL ".$oldval[$i];
 
                     echo "<table class='meta-table'>";
 
@@ -186,6 +197,12 @@ if (!class_exists("RepeatableMetaGroup")) {
                     switch ($field['type']) {
                         case "text":
                             echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s"/><br/>', $field['type'], $field['type'], $field['id'], $field['id'], $i, $value);
+                            break;
+                        case "checkbox":
+                            $checked = "";
+                            if($value) $checked="checked";
+                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s" />', $field['type'], "hidden", $field['id'], $field['id'], $i, $value);
+                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" data-index="%d" id="c___%s_%d" value="%s" %s /><br/>', $field['type'], $field['type'], $i, $field['id'], $i, $field['default'],$checked);
                             break;
                         case "color":
                             echo sprintf('<input class="rmg-color widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s"/><br/>', $field['type'], $field['type'], $field['id'], $field['id'], $i, $value);
