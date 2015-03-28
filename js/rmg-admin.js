@@ -43,7 +43,7 @@
                 $(".rmg-color").farbtastic();
         }
 
-        $(".data-fieldtype-checkbox").on("click",function(e){
+        $(".rmg").on("click",".data-fieldtype-checkbox",function(e){
             if($(this).prop("checked")){
                 var val = $(this).val();
                 var id = $(this).attr("id");
@@ -66,8 +66,25 @@
 
 
     $(".rmg .rmg-addmore").on("click", function (ev) {
-        var e = $(this).parents(".rmg").find(".rmg-rb:eq(0)").clone();
-        $(e).find("input, textarea, select").attr("id", "").val("");
+        var e = $(this).parents(".rmg").find(".rmg-rb:last").clone();
+        $(e).find("input, textarea, select").each(function(){
+            var id = $(this).attr("id");
+            if(id) {
+                var parts = id.split("---");
+                var counter = parseInt(parts[1]) + 1;
+                var newid = parts[0] + "---" + counter;
+                $(this).attr("id", newid);
+
+                if($(this).attr("type")!="checkbox" && $(this).attr("type")!="submit"){
+                    $(this).val("");
+                }
+
+                if($(this).attr("type")=="checkbox"){
+                    $(this).prop("checked",false);
+                }
+            }
+
+        });
 
         $(e).find(".galgalremove").remove();
         $(e).find(".gallery-ph").html("");

@@ -188,33 +188,32 @@ if (!class_exists("RepeatableMetaGroup")) {
                         $value = isset($oldval[$i]) ? $oldval[$i] : $field['default'];
                     else
                         $value = $oldval[$i];
-                    echo "OLDVAL ".$oldval[$i];
 
                     echo "<table class='meta-table'>";
 
-                    echo sprintf('<tr><th width="100"><label for="%s_%d">%s</label></th><td align="left">', $field['id'], $i, $field['name']);
+                    echo sprintf('<tr><th width="100"><label for="%s---%d">%s</label></th><td align="left">', $field['id'], $i, $field['name']);
 
                     switch ($field['type']) {
                         case "text":
-                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s"/><br/>', $field['type'], $field['type'], $field['id'], $field['id'], $i, $value);
+                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s---%d" value="%s"/><br/>', $field['type'], $field['type'], $field['id'], $field['id'], $i, $value);
                             break;
                         case "checkbox":
                             $checked = "";
                             if($value) $checked="checked";
-                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s" />', $field['type'], "hidden", $field['id'], $field['id'], $i, $value);
-                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" data-index="%d" id="c___%s_%d" value="%s" %s /><br/>', $field['type'], $field['type'], $i, $field['id'], $i, $field['default'],$checked);
+                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s---%d" value="%s" />', $field['type'], "hidden", $field['id'], $field['id'], $i, $value);
+                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" data-index="%d" id="c___%s---%d" value="%s" %s /><br/>', $field['type'], $field['type'], $i, $field['id'], $i, $field['default'],$checked);
                             break;
                         case "color":
-                            echo sprintf('<input class="rmg-color widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s"/><br/>', $field['type'], $field['type'], $field['id'], $field['id'], $i, $value);
+                            echo sprintf('<input class="rmg-color widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s---%d" value="%s"/><br/>', $field['type'], $field['type'], $field['id'], $field['id'], $i, $value);
                             break;
                         case "textarea":
-                            echo sprintf('<textarea class="data-fieldtype-%s" type="text" name="%s[]" id="%s_%d">%s</textarea><br/>', $field['type'], $field['id'], $field['id'], $i, $value);
+                            echo sprintf('<textarea class="data-fieldtype-%s" type="text" name="%s[]" id="%s---%d">%s</textarea><br/>', $field['type'], $field['id'], $field['id'], $i, $value);
                             break;
                         case "wysywyg":
                             wp_editor($value, "{$field['id']}_$i", array("textarea_name" => "{$field['id']}[]", "teeny" => true));
                             break;
                         case "select":
-                            echo sprintf('<select name="%s[]" class="rmg-select data-fieldtype-%s" id="%s_%d">', $field['id'], $field['type'], $field['id'], $i);
+                            echo sprintf('<select name="%s[]" class="rmg-select data-fieldtype-%s" id="%s---%d">', $field['id'], $field['type'], $field['id'], $i);
                             echo "<option value=''>" . __('Select a value', 'rmg') . "</option>";
                             foreach ($field['options'] as $key => $val) {
                                 $selected = "";
@@ -230,7 +229,7 @@ if (!class_exists("RepeatableMetaGroup")) {
                             echo "<input type='button' value='" . __('Clear', 'rmg') . "' style='margin-left:10px;' class='galgalremove button button-large' >";
                             break;
                         default:
-                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s_%d" value="%s"/><br/>', "text", "text", $field['id'], $field['id'], $i, $value);
+                            echo sprintf('<input class="widefat data-fieldtype-%s" type="%s" name="%s[]" id="%s---%d" value="%s"/><br/>', "text", "text", $field['id'], $field['id'], $i, $value);
                             break;
 
                     }
