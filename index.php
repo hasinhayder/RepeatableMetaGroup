@@ -223,9 +223,6 @@ if ( ! class_exists( "RepeatableMetaGroup" ) ) {
 						case "radio":
 							foreach ( $field['options'] as $fo=>$label ) {
 								$rchecked = "";
-
-								echo $fo.":".$value;
-
 								if($fo==$value) $rchecked = "checked";
 								echo sprintf( '<input class="widefat data-fieldtype-%s" type="%s" name="%s---%d[]" data-counter="%d" value="%s" %s/>', $field['type'], $field['type'], $field['id'],$i, $i, $fo, $rchecked );
 								echo "<label class='rl'>{$label}</label>";
