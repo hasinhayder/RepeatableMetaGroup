@@ -106,3 +106,16 @@
     padding-right: 10px;
     padding-top:5px;
 }
+
+
+.rmg label.rl{
+    display: inline;
+    font-style: normal;
+    font-weight: normal;
+    margin-right: 10px;
+}
+
+.rmg input[type='radio']{
+    margin:0px;
+    margin-right: 5px;
+}

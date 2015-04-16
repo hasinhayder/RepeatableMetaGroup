@@ -84,6 +84,16 @@
                 }
             }
 
+            // radio fix
+            $(e).find(".data-fieldtype-hidden").val("");
+            $(e).find(".data-fieldtype-radio").each(function(){
+                    var counter = $(this).data("counter");
+                    var name = $(this).prop("name");
+                    var parts = name.split("---");
+                    var newname = parts[0]+"---"+(parseInt(counter)+1)+"[]";
+                    $(this).prop("name",newname);
+            });
+
         });
 
         $(e).find(".galgalremove").remove();
@@ -143,6 +153,11 @@
 
 
     $(".rmg").find(".rmg-rb:last").css("border", "none");
+
+    $(".rmg").on("click",".data-fieldtype-radio",function(){
+        console.log("u");
+        $(this).nextAll(".data-fieldtype-hidden:first").val($(this).val());
+    });
 
     function borderFix(){
         $(".rmg .rmg-rb").css("border-bottom", "1px solid #eee");
