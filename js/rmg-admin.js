@@ -115,7 +115,8 @@
             $(".rmg").find(".rmg-rb:last").css("border", "none");
         } else {
             $(this).hide();
-            $(this).parents(".rmg-rb").find("input, textarea, select").attr("id", "").val("");
+            $(this).parents(".rmg-rb").find("input[type='text'], textarea, select").val("");
+            $(this).parents(".rmg-rb").find("input[type='radio'], input[type='checkbox']").prop("checked",0);
         }
 
         e.preventDefault();
