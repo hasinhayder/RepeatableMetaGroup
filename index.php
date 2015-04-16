@@ -3,7 +3,7 @@
 Plugin Name: Repeatable Meta Group
 Plugin URI: http://rmg.cetainly.rocks
 Description: Gives you an easy way to create repeatable meta field group
-Version: 1.0
+Version: 1.1
 Author: Hasin Hayder
 Author URI: http://hasin.me
 License: GPL
